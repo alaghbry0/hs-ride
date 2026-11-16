@@ -1,0 +1,55 @@
+# معاينة ويب عامة على GitHub Pages — تُبنى مع كل tag v* (وعبيداً يدوياً).
+# الغرض: رابط HTTPS دائم يجربه المالك على متصفحه دون ارتباط بعمر الـsandbox.
+# نفس أعلام بناء الـsandbox: O2 (O4 يقتل dart2js بـ OOM) + --no-wasm-dry-run.
+name: Build Web Preview (GitHub Pages)
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  pages:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: mobile_app
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.47.7
+          channel: stable
+          cache: true
+
+      - name: Pub get
+        run: flutter pub get
+
+      - name: Analyze gate
+        run: flutter analyze
+
+      - name: Test gate
+        run: flutter test
+
+      - name: Build web (base-href /hs-ride/)
+        run: >
+          flutter build web --release
+          --base-href /hs-ride/
+          --dart2js-optimization O2
+          --no-wasm-dry-run
+
+      - name: Deploy to gh-pages (orphan force-push)
+        run: |
+          cd build/web
+          git init -b gh-pages .
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "web build: ${GITHUB_REF_NAME}"
+          git remote add origin "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git"
+          git push -f origin gh-pages

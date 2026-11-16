@@ -1,0 +1,48 @@
+name: hs_ride
+description: "HS للنقل البري — نموذج أولي تفاعلي لخدمة نقل بري محلية داخل المملكة العربية السعودية (شبيه بأوبر): دورة راكب كاملة ودورة سائق كاملة في تطبيق واحد عربي RTL."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.13.5
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the iOS style icons.
+  cupertino_icons: ^1.0.8
+
+  # ── الخريطة ──
+  # flutter_map + OpenStreetMap — بلا مفاتيح API مدفوعة (متطلب صريح).
+  flutter_map: ^8.2.1
+  # latlong2 — أنواع الإحداثيات (LatLng) التي تستهلكها النماذج مباشرة.
+  latlong2: ^0.9.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^6.0.0
+
+flutter:
+
+  # The following line ensures that the Material Icons font is
+  # included with your application.
+  uses-material-design: true
+
+  # Cairo — خط عربي احترافي (موضعي كأصول خطوط لا كحزمة pub،
+  # التزاماً بمبدأ أقل الاعتماديات الممكنة).
+  fonts:
+    - family: Cairo
+      fonts:
+        - asset: assets/fonts/Cairo-400.ttf
+          weight: 400
+        - asset: assets/fonts/Cairo-600.ttf
+          weight: 600
+        - asset: assets/fonts/Cairo-600.ttf
+          weight: 500
+        - asset: assets/fonts/Cairo-700.ttf
+          weight: 700

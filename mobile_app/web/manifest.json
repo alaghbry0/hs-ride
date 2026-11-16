@@ -1,0 +1,35 @@
+{
+    "name": "HS للنقل البري",
+    "short_name": "HS للنقل",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#0E2A26",
+    "theme_color": "#00A98F",
+    "description": "HS للنقل البري — نموذج أولي تفاعلي لخدمة نقل بري محلية داخل المملكة العربية السعودية: دورة راكب كاملة ودورة سائق كاملة.",
+    "orientation": "portrait-primary",
+    "prefer_related_applications": false,
+    "icons": [
+        {
+            "src": "icons/Icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/Icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/Icon-maskable-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "maskable"
+        },
+        {
+            "src": "icons/Icon-maskable-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+        }
+    ]
+}

@@ -1,0 +1,9 @@
+{
+  "name": "static-preview",
+  "version": "1.0.0",
+  "private": true,
+  "description": "خادم المعاينة الثابت لتطبيق HS للنقل البري — يقدم بناء Flutter Web على المنفذ 3000 خلف بوابة Caddy",
+  "scripts": {
+    "dev": "node server.mjs"
+  }
+}

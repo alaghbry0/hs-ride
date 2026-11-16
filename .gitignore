@@ -1,2 +1,10 @@
 skills/
 node_modules/
+# مخرجات بناء Flutter — تُعاد من المصدر ولا تُلتزم أبداً.
+mobile_app/build/
+mobile_app/.dart_tool/
+mobile_app/.flutter-plugins*
+public/mobile_app/
+# SDK وأدوات خارج git
+.zcode/
+*.log
