@@ -114,18 +114,20 @@ node mini-services/static-preview/server.mjs   # المعاينة على الم�
 7. أدِر الرحلة: **وصلت إلى العميل** ← **بدء الرحلة** ← **إنهاء الرحلة وتحصيل المبلغ** — وراقب عداد أرباح اليوم.
 8. اضغط **تبديل الوضع** وعد للراكب — ستجد شاشة **التقييم بالنجوم** بانتظارك.
 
-## الروابط المباشرة (v1.0.1)
+## الروابط المباشرة (v1.0.2)
 
 | المورد | الرابط |
 |---|---|
 | المستودع | https://github.com/alaghbry0/hs-ride |
-| APK (Release v1.0.1) | https://github.com/alaghbry0/hs-ride/releases/download/v1.0.1/app-release.apk |
+| APK عالمي — كل المعالجات (v1.0.2) | https://github.com/alaghbry0/hs-ride/releases/download/v1.0.2/app-release.apk |
+| **APK ARM 64-bit** — الهواتف الحديثة (v1.0.2) | https://github.com/alaghbry0/hs-ride/releases/download/v1.0.2/app-arm64-v8a-release.apk |
+| APK ARM 32-bit — الأجهزة الأقدم (v1.0.2) | https://github.com/alaghbry0/hs-ride/releases/download/v1.0.2/app-armeabi-v7a-release.apk |
 | معاينة ويب حية (Pages) | https://alaghbry0.github.io/hs-ride/ |
 
-> **ملاحظة الإصدار v1.0.1**: أصلحت مشكلة اختفاء الخريطة على الهواتف — كان
-> APK v1.0.0 مبنياً بلا صلاحية `INTERNET` في المانيفست الرئيسي (كانت موجودة
-> في debug فقط) فتعذّر تحميل بلاطات OpenStreetMap. تم التحقق من الإصلاح
-> بفحص المانيفست الثنائي داخل APK v1.0.1: الصلاحية موجودة ✓
+> **جديد في v1.0.2**: نسخ APK منفصلة لكل معالج (`--split-per-abi`) بجانب
+> العالمية — نسخة `arm64-v8a` لهواتف Android الحديثة (18 MB بدل 51.5 MB)
+> و`armeabi-v7a` للأجهزة الأقدم (15.6 MB). يتضمن إصلاح صلاحية `INTERNET`
+> من v1.0.1 (بلاه كانت الخريطة فارغة على الهواتف).
 
 ## حالة الجودة (محققة فعلياً)
 
