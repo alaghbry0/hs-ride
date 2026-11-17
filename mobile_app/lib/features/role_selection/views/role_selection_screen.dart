@@ -41,7 +41,8 @@ class RoleSelectionScreen extends StatelessWidget {
                     alignment: AlignmentDirectional.centerStart,
                     child: IconButton(
                       onPressed: onBack,
-                      icon: const Icon(Icons.arrow_back_ios_new, color: Colors.white70),
+                      // في RTL "الرجوع" يتجه لليمين — أيقونة معكوسة الاتجاه.
+                      icon: const Icon(Icons.arrow_forward_ios, color: Colors.white70),
                     ),
                   ),
                 SizedBox(height: size.height * 0.05),
