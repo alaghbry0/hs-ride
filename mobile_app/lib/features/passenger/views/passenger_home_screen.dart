@@ -6,10 +6,8 @@ import '../../../../core/theme/app_theme.dart';
 import '../../../../shared/models/app_models.dart';
 import '../../../../shared/state/ride_store.dart';
 import '../../../../shared/widgets/hs_app_scope.dart';
-import '../../widgets/ride_map.dart';
-import '../widgets/destination_picker_sheet.dart';
+import '../widgets/ride_map.dart';
 import '../widgets/vehicle_class_sheet.dart';
-import '../widgets/ride_tracking_sheet.dart';
 
 /// شاشة الراكب الرئيسية — خريطة تفاعلية + لوحة سفلية تتغير حسب مرحلة الرحلة:
 ///
@@ -73,7 +71,7 @@ class _PassengerHomeScreenState extends State<PassengerHomeScreen> {
                     children: [
                       _TopChip(
                         icon: Icons.swap_horiz,
-                        label: phase == RidePhase.idle ? 'تبديل الوضع' : store.role == AppRole.driver ? 'وضع السائق' : 'وضع الراكب',
+                        label: 'تبديل الوضع',
                         onTap: widget.onSwitchRole,
                       ),
                       const Spacer(),

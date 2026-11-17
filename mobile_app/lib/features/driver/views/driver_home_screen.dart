@@ -6,7 +6,6 @@ import '../../../core/theme/app_theme.dart';
 import '../../../shared/models/app_models.dart';
 import '../../../shared/state/ride_store.dart';
 import '../../../shared/widgets/hs_app_scope.dart';
-import '../../../shared/widgets/hs_logo.dart';
 import '../../passenger/widgets/ride_map.dart';
 
 /// لوحة تحكم السائق (الكابتن) — أربعة أوضاع عرض:

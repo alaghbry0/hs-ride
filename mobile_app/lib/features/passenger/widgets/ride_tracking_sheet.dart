@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/theme/app_theme.dart';
 import '../../../../shared/models/app_models.dart';
-import '../../../../shared/state/ride_store.dart';
 import '../../../../shared/widgets/hs_app_scope.dart';
 
 /// لوحة "جاري البحث عن كابتن" — مؤشر نبض + ملخص الطلب + إلغاء.
@@ -65,7 +64,6 @@ class RideTrackingSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final store = HSAppScope.of(context);
     final captain = ride.captain;
     final phase = ride.status;
 

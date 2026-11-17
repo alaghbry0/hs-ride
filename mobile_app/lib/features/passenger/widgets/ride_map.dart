@@ -108,10 +108,7 @@ class RideMap extends StatelessWidget {
         MarkerLayer(markers: markers),
         const RichAttributionWidget(
           attributions: [
-            TextSourceAttribution(
-              'OpenStreetMap',
-              uri: Uri.parse('https://www.openstreetmap.org/copyright'),
-            ),
+            TextSourceAttribution('OpenStreetMap'),
           ],
         ),
       ],

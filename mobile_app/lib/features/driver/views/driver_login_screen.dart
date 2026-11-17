@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 
 import '../../../core/theme/app_theme.dart';
 import '../../../shared/models/app_models.dart';
-import '../../../shared/state/ride_store.dart';
 import '../../../shared/widgets/hs_app_scope.dart';
 import '../../../shared/widgets/hs_logo.dart';
 
@@ -112,7 +111,7 @@ class _DriverLoginScreenState extends State<DriverLoginScreen> {
                     ),
                     const SizedBox(height: 14),
                     DropdownButtonFormField<String>(
-                      value: _vehicleType,
+                      initialValue: _vehicleType,
                       decoration: _decoration('نوع المركبة', Icons.directions_car_outlined),
                       items: _vehicleTypes
                           .map((v) => DropdownMenuItem(value: v, child: Text(v, style: const TextStyle(fontSize: 14))))
@@ -196,12 +195,8 @@ class _DriverLoginScreenState extends State<DriverLoginScreen> {
         joinedAt: DateTime.now(),
       ),
     );
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('مرحباً ${_nameCtrl.text.trim()} — حسابك جاهز!'),
-        backgroundColor: HSColors.brandDark,
-      ),
-    );
+    // بلا SnackBar: الانتقال المباشر إلى لوحة التحكم هو التأكيد البصري
+    // (الـSnackBar كان يحجب زر التوفر في أسفل الشاشة مباشرة بعد التسجيل).
   }
 }
 

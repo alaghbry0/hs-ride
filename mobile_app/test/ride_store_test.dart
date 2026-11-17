@@ -135,7 +135,13 @@ void main() {
       final store = RideStore();
       store.setOrigin(origin);
       store.setDestination(origin);
-      expect(store.destination, isNull, reason: 'الوجهة تسقط إن طابقت الانطلاق');
+      expect(store.destination, isNull, reason: 'الوجهة تُرفض إن طابقت الانطلاق');
+
+      // بعد تبديل الانطلاق تسقط الوجهة المطابقة السابقة أيضاً.
+      store.setDestination(destination);
+      store.setOrigin(destination);
+      expect(store.origin, destination);
+      expect(store.destination, isNull);
     });
   });
 
@@ -202,9 +208,15 @@ void main() {
     });
 
     test('البحث النصي يفلتر بالاسم', () {
-      final results = places.search('المطار');
+      // الاستعلام بدون "ال" التعريف يطابق المواقع المبدوءة بها
+      // (المنطق يقص "ال" من الطرفين لمطابقة عربية طبيعية).
+      final results = places.search('مطار');
       expect(results, isNotEmpty);
-      expect(results.every((p) => p.name.contains('المطار')), isTrue);
+      expect(results.every((p) => p.name.contains('مطار')), isTrue);
+
+      // والاستعلام بـ"ال" يطابق أيضاً بعد قص التعريف.
+      final withAl = places.search('المطار');
+      expect(withAl.length, results.length);
     });
   });
 }

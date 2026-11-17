@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 
 import '../models/app_models.dart';
-import 'fare_calculator.dart';
-import 'places_repository.dart';
+import '../services/fare_calculator.dart';
+import '../services/places_repository.dart';
 
 /// الحالة المشتركة المركزية لدورتي الراكب والسائق — "الخادم الوهمي".
 ///
@@ -90,14 +90,15 @@ class RideStore extends ChangeNotifier {
   void setOrigin(Place? place) {
     if (_activeRide != null && !_activeRide!.status.isTerminal) return;
     _origin = place;
-    if (_destination?.id == place?.id) _destination = null;
+    if (place != null && _destination?.id == place.id) _destination = null;
     notifyListeners();
   }
 
   void setDestination(Place? place) {
     if (_activeRide != null && !_activeRide!.status.isTerminal) return;
+    // رفض الوجهة إن طابقت نقطة الانطلاق — يجب اختيار موقعين مختلفين.
+    if (place != null && _origin?.id == place.id) return;
     _destination = place;
-    if (_origin?.id == place?.id) _origin = null;
     notifyListeners();
   }
 
@@ -288,7 +289,7 @@ class RideStore extends ChangeNotifier {
       if (ride == null || ride.status != RidePhase.searching) return;
       _activeRide = ride.copyWith(
         status: RidePhase.driverOnTheWay,
-        captain: _captainFromProfile() ?? _fallbackCaptain,
+        captain: _captainFromProfile(),
         acceptedAt: DateTime.now(),
       );
       notifyListeners();

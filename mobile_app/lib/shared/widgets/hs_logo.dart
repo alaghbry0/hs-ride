@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../theme/app_theme.dart';
+import '../../core/theme/app_theme.dart';
 
 /// شعار HS — دائرة متدرجة بحرفَي "HS" وأسلوب عصري.
 class HSLogo extends StatelessWidget {

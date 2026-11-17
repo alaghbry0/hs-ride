@@ -145,12 +145,17 @@ class PlacesRepository {
     ),
   ];
 
-  /// بحث نصي بسيط بالاسم أو العنوان.
+  /// بحث نصي بسيط بالاسم أو العنوان (مع تجاهل "ال" التعريف).
   List<Place> search(String query) {
     if (query.trim().isEmpty) return places;
-    final q = query.trim();
-    return places
-        .where((p) => p.name.contains(q) || p.address.contains(q))
-        .toList();
+    var q = query.trim();
+    if (q.startsWith('ال') && q.length > 2) q = q.substring(2);
+    bool match(Place p) {
+      var name = p.name;
+      if (name.startsWith('ال')) name = name.substring(2);
+      return name.contains(q) || p.address.contains(q);
+    }
+
+    return places.where(match).toList();
   }
 }

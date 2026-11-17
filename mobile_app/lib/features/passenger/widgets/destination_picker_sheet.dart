@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:latlong2/latlong.dart';
 
 import '../../../../core/theme/app_theme.dart';
 import '../../../../shared/models/app_models.dart';
@@ -71,21 +70,20 @@ class BookingSheet extends StatelessWidget {
           // ── عروض فئات المركبات ──────────────────────────────────
           if (estimates.isNotEmpty) ...[
             const SizedBox(height: 18),
-            SizedBox(
-              height: 108,
-              child: ListView.separated(
-                scrollDirection: Axis.horizontal,
-                itemCount: estimates.length,
-                separatorBuilder: (_, __) => const SizedBox(width: 10),
-                itemBuilder: (context, i) {
-                  final e = estimates[i];
-                  final selected = store.selectedClass == e.vehicleClass;
-                  return _ClassCard(
-                    estimate: e,
-                    selected: selected,
-                    onTap: () => store.selectClass(e.vehicleClass),
-                  );
-                },
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  for (var i = 0; i < estimates.length; i++) ...[
+                    if (i > 0) const SizedBox(width: 10),
+                    _ClassCard(
+                      estimate: estimates[i],
+                      selected: store.selectedClass == estimates[i].vehicleClass,
+                      onTap: () => store.selectClass(estimates[i].vehicleClass),
+                    ),
+                  ],
+                ],
               ),
             ),
             const SizedBox(height: 6),
@@ -222,37 +220,38 @@ class _ClassCard extends StatelessWidget {
           ),
         ),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               children: [
-                Icon(icon, color: color, size: 22),
-                const SizedBox(width: 8),
+                Icon(icon, color: color, size: 20),
+                const SizedBox(width: 6),
                 Text(
                   vc.label,
-                  style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 14),
+                  style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 13),
                 ),
               ],
             ),
-            const SizedBox(height: 4),
+            const SizedBox(height: 3),
             Text(
               vc.description,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
+              style: TextStyle(fontSize: 10, color: Colors.grey.shade600),
             ),
-            const Spacer(),
+            const SizedBox(height: 6),
             Text(
               '${estimate.total.toStringAsFixed(2)} ر.س',
               style: TextStyle(
                 fontWeight: FontWeight.w800,
-                fontSize: 16,
+                fontSize: 15,
                 color: color,
               ),
             ),
             Text(
               '${estimate.distanceKm.toStringAsFixed(1)} كم • ${estimate.durationMin} د',
-              style: const TextStyle(fontSize: 11, color: Color(0xFF616161)),
+              style: const TextStyle(fontSize: 10, color: Color(0xFF616161)),
             ),
           ],
         ),
@@ -279,11 +278,9 @@ class PlacePickerSheet extends StatelessWidget {
       maxChildSize: 0.92,
       minChildSize: 0.5,
       builder: (context, scrollController) {
-        return Container(
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-          ),
+        return Material(
+          color: Colors.white,
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
           child: Column(
             children: [
               const SizedBox(height: 10),
@@ -331,6 +328,7 @@ class PlacePickerSheet extends StatelessWidget {
         );
       },
     );
+  }
 }
 
 /// قاعدة موحدة للوحات السفلية — خلفية بيضاء بزوايا دائرية وظل.
@@ -358,9 +356,4 @@ class _SheetShell extends StatelessWidget {
       child: child,
     );
   }
-}
-
-/// لوحة اختيار الموقع مصدَّرة للاستخدام من اللوحات الأخرى.
-class DestinationPickerSheet extends PlacePickerSheet {
-  const DestinationPickerSheet({super.excludeId});
 }

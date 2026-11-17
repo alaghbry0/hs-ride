@@ -102,12 +102,12 @@ ThemeData buildTheme(Brightness brightness) {
       ),
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
     ),
-    cardTheme: CardTheme(
+    cardTheme: CardThemeData(
       elevation: 0,
       color: brightness == Brightness.light ? Colors.white : const Color(0xFF1A1F1F),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(18),
-        side: BorderSide(color: scheme.outlineVariant.withOpacity(.5)),
+        side: BorderSide(color: scheme.outlineVariant.withValues(alpha: .5)),
       ),
     ),
     snackBarTheme: const SnackBarThemeData(

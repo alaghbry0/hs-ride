@@ -38,30 +38,33 @@ void main() {
     await tester.tap(find.text('وضع الراكب'));
     await tester.pumpAndSettle();
 
-    // 2) اختيار الانطلاق والوجهة.
-    await tester.tap(find.textContaining('من أين تنطلق؟'));
+    // 2) اختيار الانطلاق والوجهة — الحقلان يظهران نص "من أين تنطلق؟"/"إلى أين تذهب؟"
+    //    (في hintText وInputDecorator معاً) لذا نستهدف أول ظهور بدقة.
+    await tester.tap(find.text('من أين تنطلق؟').first);
     await tester.pumpAndSettle();
     await tester.tap(find.text(origin.name).last);
     await tester.pumpAndSettle();
 
-    await tester.tap(find.textContaining('إلى أين تذهب؟'));
+    await tester.tap(find.text('إلى أين تذهب؟').first);
     await tester.pumpAndSettle();
     await tester.tap(find.text(destination.name).last);
     await tester.pumpAndSettle();
 
     // 3) تأكيد الطلب.
+    //    ملاحظة: شاشة البحث تحوي مؤشر نبض متكرر — pumpAndSettle لا يستقر
+    //    أبداً معه، لذا نستخدم pump بمدد ثابتة حتى مغادرة وضع الراكب.
     await tester.tap(find.textContaining('تأكيد الطلب'));
-    await tester.pumpAndSettle();
+    await tester.pump(const Duration(milliseconds: 600));
     expect(find.textContaining('جاري البحث عن كابتن'), findsOneWidget);
 
     // 4) التبديل لوضع السائق — يجب أن يظهر الطلب المعلّق في شاشة البداية.
     await tester.tap(find.textContaining('تبديل الوضع'));
-    await tester.pumpAndSettle();
+    await tester.pump(const Duration(milliseconds: 600));
     expect(find.textContaining('طلب رحلة معلّق'), findsOneWidget);
 
     // 5) دخول وضع السائق: شاشة تسجيل السائق.
     await tester.tap(find.text('وضع السائق'));
-    await tester.pumpAndSettle();
+    await tester.pump(const Duration(milliseconds: 600));
 
     // 6) تسجيل سائق جديد.
     await tester.enterText(
@@ -76,15 +79,20 @@ void main() {
       find.widgetWithText(TextFormField, 'رقم اللوحة'),
       'ر س ط 1001',
     );
-    await tester.tap(find.textContaining('أوافق على شروط'));
+    await tester.tap(find.byType(Checkbox));
     await tester.pumpAndSettle();
     await tester.tap(find.text('إنشاء حساب الكابتن'));
     await tester.pumpAndSettle();
+    // انتظار اختفاء SnackBar «مرحباً خالد…» (يغطي أسفل الشاشة 4 ثوانٍ).
+    await tester.pump(const Duration(seconds: 5));
 
     // 7) لوحة التحكم: خارج الخدمة أولاً ثم تفعيل الاستقبال.
     expect(find.textContaining('خارج الخدمة'), findsOneWidget);
-    await tester.tap(find.textContaining('التوفر لاستقبال الطلبات'));
-    await tester.pumpAndSettle();
+    final availabilityButton = find.textContaining('التوفر لاستقبال الطلبات');
+    await tester.ensureVisible(availabilityButton);
+    await tester.pump(const Duration(milliseconds: 300));
+    await tester.tap(availabilityButton);
+    await tester.pump(const Duration(milliseconds: 600));
 
     // 8) بطاقة الطلب الوارد تظهر الطلب الذي أنشأه الراكب قبل التبديل.
     expect(find.text('طلب جديد!'), findsOneWidget);
@@ -101,8 +109,9 @@ void main() {
     await tester.pumpAndSettle();
 
     // 10) العودة لوضع الراكب — يجب أن يجد شاشة التقييم.
-    await tester.tap(find.textContaining('تبديل الوضع'));
-    await tester.pumpAndSettle();
+    //    زر التبديل في شاشة السائق أيقونة بارزة (بلا نص).
+    await tester.tap(find.byTooltip('تبديل الوضع'));
+    await tester.pump(const Duration(milliseconds: 600));
     await tester.tap(find.text('وضع الراكب'));
     await tester.pumpAndSettle();
 
