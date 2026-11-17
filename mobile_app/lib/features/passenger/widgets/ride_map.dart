@@ -88,6 +88,8 @@ class RideMap extends StatelessWidget {
       ),
       children: [
         // بلاطات OpenStreetMap — بلا مفتاح API (سياسة الاستخدام العادل).
+        // ملاحظة: خلفية الخريطة (backgroundColor أدناه) تظهر مكان أي بلاطة
+        // يفشل تحميلها، فلا تبقى مساحات سوداء على الشبكات الضعيفة.
         TileLayer(
           urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
           userAgentPackageName: 'sa.hs.ride',

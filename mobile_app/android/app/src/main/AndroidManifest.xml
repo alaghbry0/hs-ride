@@ -1,4 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- صلاحية الإنترنت ضرورية لتحميل بلاطات خريطة OpenStreetMap.
+         (إصدار v1.0.0 بُني بلا هذه الصلاحية في المانيفست الرئيسي — كانت
+         موجودة فقط في debug/ — فظهرت الخريطة فارغة في APK الـrelease.) -->
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:label="HS للنقل البري"
         android:name="${applicationName}"
