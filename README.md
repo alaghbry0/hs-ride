@@ -114,13 +114,18 @@ node mini-services/static-preview/server.mjs   # المعاينة على الم�
 7. أدِر الرحلة: **وصلت إلى العميل** ← **بدء الرحلة** ← **إنهاء الرحلة وتحصيل المبلغ** — وراقب عداد أرباح اليوم.
 8. اضغط **تبديل الوضع** وعد للراكب — ستجد شاشة **التقييم بالنجوم** بانتظارك.
 
-## الروابط المباشرة (v1.0.0)
+## الروابط المباشرة (v1.0.1)
 
 | المورد | الرابط |
 |---|---|
 | المستودع | https://github.com/alaghbry0/hs-ride |
-| APK (Release v1.0.0) | https://github.com/alaghbry0/hs-ride/releases/download/v1.0.0/app-release.apk |
+| APK (Release v1.0.1) | https://github.com/alaghbry0/hs-ride/releases/download/v1.0.1/app-release.apk |
 | معاينة ويب حية (Pages) | https://alaghbry0.github.io/hs-ride/ |
+
+> **ملاحظة الإصدار v1.0.1**: أصلحت مشكلة اختفاء الخريطة على الهواتف — كان
+> APK v1.0.0 مبنياً بلا صلاحية `INTERNET` في المانيفست الرئيسي (كانت موجودة
+> في debug فقط) فتعذّر تحميل بلاطات OpenStreetMap. تم التحقق من الإصلاح
+> بفحص المانيفست الثنائي داخل APK v1.0.1: الصلاحية موجودة ✓
 
 ## حالة الجودة (محققة فعلياً)
 
